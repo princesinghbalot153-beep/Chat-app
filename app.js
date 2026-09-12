@@ -9,6 +9,7 @@ const usersList   = document.getElementById('usersList');
 const myAvatar    = document.getElementById('myAvatar');
 const otherAvatar = document.getElementById('otherAvatar');
 const otherName   = document.getElementById('otherName');
+const typingStatus = document.getElementById('typingStatus');
 const messagesEl  = document.getElementById('messages');
 const form        = document.getElementById('form');
 const input       = document.getElementById('input');
@@ -85,7 +86,14 @@ function openChat(other) {
 }
 
 backBtn.onclick = () => {
+  if (unsubMessages) { unsubMessages(); unsubMessages = null; }
+  if (currentOther) {
+    isTyping = false;
+    socket.emit('stop typing', currentOther.id);
+  }
   currentOther = null;
+  typingStatus.textContent = 'online';
+  typingStatus.classList.remove('typing');
   chatScreen.classList.add('hidden');
   usersScreen.classList.remove('hidden');
 };
@@ -99,7 +107,22 @@ form.addEventListener('submit', (e) => {
   input.value = '';
   input.focus();
 });
+// Typing indicator bhejo
+let typingTimer = null;
+let isTyping = false;
 
+input.addEventListener('input', () => {
+  if (!currentOther) return;
+  if (!isTyping) {
+    isTyping = true;
+    socket.emit('typing', currentOther.id);
+  }
+  clearTimeout(typingTimer);
+  typingTimer = setTimeout(() => {
+    isTyping = false;
+    socket.emit('stop typing', currentOther.id);
+  }, 1500);
+});
 // --- History ---
 socket.on('chat history', (history) => {
   messagesEl.innerHTML = '';
@@ -136,3 +159,19 @@ function addMessage(msg) {
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js');
 }
+// Doosre user ki typing receive karo
+socket.on('typing', ({ from, name }) => {
+  if (!currentOther) return;
+  if (from === currentOther.id) {
+    typingStatus.textContent = 'typing...';
+    typingStatus.classList.add('typing');
+  }
+});
+
+socket.on('stop typing', ({ from }) => {
+  if (!currentOther) return;
+  if (from === currentOther.id) {
+    typingStatus.textContent = 'online';
+    typingStatus.classList.remove('typing');
+  }
+});
