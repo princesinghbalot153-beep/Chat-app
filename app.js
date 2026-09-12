@@ -18,6 +18,7 @@ const backBtn     = document.getElementById('backBtn');
 let myName = '';
 let myId   = null;
 let currentOther = null;
+let unreadCounts = {}; 
 
 // --- Name screen ---
 nameBtn.onclick = () => {
@@ -68,6 +69,13 @@ socket.on('users', (list) => {
     p.textContent = 'Tap to chat';
     info.appendChild(h4); info.appendChild(p);
     row.appendChild(av); row.appendChild(info);
+        // Unread badge
+    const badge = document.createElement('span');
+    badge.className = 'unread-badge';
+    badge.id = 'badge-' + u.id;
+    badge.textContent = unreadCounts[u.id] || '';
+    if (!unreadCounts[u.id]) badge.style.display = 'none';
+    row.appendChild(badge);
     row.onclick = () => openChat(u);
     usersList.appendChild(row);
   });
