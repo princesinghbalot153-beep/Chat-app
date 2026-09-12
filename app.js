@@ -138,13 +138,26 @@ socket.on('chat history', (history) => {
 
 // --- New DM ---
 socket.on('dm', (msg) => {
-  // Sirf tab dikhao jab wahi chat khuli ho
-  if (!currentOther) return;
-  const involved =
-    (msg.from === socket.id && msg.to === currentOther.id) ||
-    (msg.from === currentOther.id && msg.to === socket.id);
-  if (!involved) return;
-  addMessage(msg);
+  // Agar current chat open hai, toh seedha message dikhao
+  if (currentOther) {
+    const involved =
+      (msg.from === socket.id && msg.to === currentOther.id) ||
+      (msg.from === currentOther.id && msg.to === socket.id);
+    if (involved) {
+      addMessage(msg);
+      return;
+    }
+  }
+  
+  // Agar message kisi aur user se aaya hai (aur tum chat me nahi ho)
+  if (msg.from !== socket.id) {
+    unreadCounts[msg.from] = (unreadCounts[msg.from] || 0) + 1;
+    const badge = document.getElementById('badge-' + msg.from);
+    if (badge) {
+      badge.textContent = unreadCounts[msg.from];
+      badge.style.display = 'inline-flex';
+    }
+  }
 });
 
 function addMessage(msg) {
