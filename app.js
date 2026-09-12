@@ -175,3 +175,24 @@ socket.on('stop typing', ({ from }) => {
     typingStatus.classList.remove('typing');
   }
 });
+// ---- Keyboard / Viewport handling ----
+function updateAppHeight() {
+  const h = window.visualViewport
+    ? window.visualViewport.height
+    : window.innerHeight;
+  document.documentElement.style.setProperty('--app-height', h + 'px');
+}
+
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('resize', updateAppHeight);
+  window.visualViewport.addEventListener('scroll', updateAppHeight);
+}
+window.addEventListener('resize', updateAppHeight);
+updateAppHeight();
+
+// Jab input focus ho, keyboard khulne ke baad messages ko bottom pe scroll karo
+input.addEventListener('focus', () => {
+  setTimeout(() => {
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }, 300);
+});
