@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Chat</title>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#075e54">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<!-- Name screen -->
+<div id="nameScreen" class="screen hidden">
+  <div class="name-box">
+    <div class="logo-circle">💬</div>
+    <h2>Welcome</h2>
+    <p>Apna naam daalo</p>
+    <input id="nameInput" type="text" placeholder="Your name" maxlength="20">
+    <button id="nameBtn">Start</button>
+  </div>
+</div>
+
+<!-- Users list -->
+<div id="usersScreen" class="screen hidden">
+  <header class="topbar">
+    <div class="avatar" id="myAvatar">?</div>
+    <div class="top-info">
+      <h3>Chats</h3>
+      <span>Kisi user pe tap karo DM ke liye</span>
+    </div>
+  </header>
+  <main id="usersList" class="users-list"></main>
+</div>
+
+<!-- Chat screen -->
+<div id="chatScreen" class="screen hidden">
+  <header class="topbar">
+    <button id="backBtn" class="back-btn">←</button>
+    <div class="avatar" id="otherAvatar">?</div>
+    <div class="top-info">
+      <h3 id="otherName">...</h3>
+      <span>online</span>
+    </div>
+  </header>
+  <main id="messages"></main>
+  <form id="form" class="inputbar">
+    <input id="input" type="text" placeholder="Message" autocomplete="off">
+    <button type="submit">
+      <svg viewBox="0 0 24 24" width="24" height="24"><path fill="#fff" d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+    </button>
+  </form>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>
