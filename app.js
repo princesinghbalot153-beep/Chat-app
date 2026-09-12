@@ -49,7 +49,7 @@ function enterApp() {
 // --- Users list ---
 socket.on('users', (list) => {
   usersList.innerHTML = '';
-  const others = list.filter(u => u.id !== socket.id);
+  const others = list.filter(u => u.id !== socket.id && u.name !== myName);
   if (others.length === 0) {
     usersList.innerHTML = '<div class="empty">Abhi koi doosra user online nahi hai.<br>Dost ko link bhejo.</div>';
     return;
