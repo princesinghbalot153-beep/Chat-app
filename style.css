@@ -468,3 +468,20 @@ body {
 .heart:nth-child(8)  { left: 75%; animation-duration: 15s; animation-delay: 0.5s; font-size: 18px; }
 .heart:nth-child(9)  { left: 85%; animation-duration: 13s; animation-delay: 3.5s; font-size: 22px; }
 .heart:nth-child(10) { left: 95%; animation-duration: 16s; animation-delay: 1.5s; font-size: 20px; }
+.love-quote {
+  font-size: 10px !important;
+  color: #ff80ab !important;
+  font-style: italic;
+  opacity: 0.85;
+  display: block;
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  animation: quoteFade 20s infinite;
+}
+@keyframes quoteFade {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
