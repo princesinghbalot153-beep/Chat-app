@@ -86,7 +86,6 @@ function openChat(other) {
 }
 
 backBtn.onclick = () => {
-  if (unsubMessages) { unsubMessages(); unsubMessages = null; }
   if (currentOther) {
     isTyping = false;
     socket.emit('stop typing', currentOther.id);
