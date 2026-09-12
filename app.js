@@ -196,3 +196,26 @@ input.addEventListener('focus', () => {
     messagesEl.scrollTop = messagesEl.scrollHeight;
   }, 300);
 });
+// Love quote rotation
+const loveQuotes = [
+  "💕 You are my today and all of my tomorrows",
+  "❤️ Every love story is beautiful, but ours is my favorite",
+  "💖 You make my heart smile",
+  "💗 I love you more than yesterday, less than tomorrow",
+  "💓 Together is my favorite place to be",
+  "💕 My heart is perfect because you are inside",
+  "❤️ You are the best thing that ever happened to me",
+  "💖 Forever and always, you and me"
+];
+let quoteIndex = 0;
+const loveQuoteEl = document.getElementById('loveQuote');
+if (loveQuoteEl) {
+  setInterval(() => {
+    quoteIndex = (quoteIndex + 1) % loveQuotes.length;
+    loveQuoteEl.style.opacity = '0';
+    setTimeout(() => {
+      loveQuoteEl.textContent = loveQuotes[quoteIndex];
+      loveQuoteEl.style.opacity = '1';
+    }, 500);
+  }, 8000);
+}
