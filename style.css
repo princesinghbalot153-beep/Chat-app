@@ -427,3 +427,44 @@ body {
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover { background: #3a4a52; }
+/* ====== FLOATING HEARTS ====== */
+.hearts-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.heart {
+  position: absolute;
+  bottom: -60px;
+  font-size: 22px;
+  opacity: 0;
+  animation: floatUp linear infinite;
+  filter: drop-shadow(0 0 6px rgba(255,64,129,0.5));
+}
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(0.6);
+    opacity: 0;
+  }
+  10% { opacity: 0.9; }
+  50% {
+    transform: translateY(-50vh) rotate(180deg) scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-110vh) rotate(360deg) scale(0.7);
+    opacity: 0;
+  }
+}
+.heart:nth-child(1)  { left: 5%;  animation-duration: 12s; animation-delay: 0s;   font-size: 18px; }
+.heart:nth-child(2)  { left: 15%; animation-duration: 15s; animation-delay: 2s;   font-size: 24px; }
+.heart:nth-child(3)  { left: 25%; animation-duration: 13s; animation-delay: 4s;   font-size: 20px; }
+.heart:nth-child(4)  { left: 35%; animation-duration: 16s; animation-delay: 1s;   font-size: 26px; }
+.heart:nth-child(5)  { left: 45%; animation-duration: 14s; animation-delay: 3s;   font-size: 22px; }
+.heart:nth-child(6)  { left: 55%; animation-duration: 17s; animation-delay: 5s;   font-size: 20px; }
+.heart:nth-child(7)  { left: 65%; animation-duration: 12s; animation-delay: 2.5s; font-size: 24px; }
+.heart:nth-child(8)  { left: 75%; animation-duration: 15s; animation-delay: 0.5s; font-size: 18px; }
+.heart:nth-child(9)  { left: 85%; animation-duration: 13s; animation-delay: 3.5s; font-size: 22px; }
+.heart:nth-child(10) { left: 95%; animation-duration: 16s; animation-delay: 1.5s; font-size: 20px; }
