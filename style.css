@@ -445,10 +445,11 @@ body {
 .heart {
   position: absolute;
   bottom: -60px;
-  font-size: 22px;
+  font-size: 26px;
   opacity: 0;
   animation: floatUp linear infinite;
-  filter: drop-shadow(0 0 6px rgba(255,64,129,0.5));
+  filter: drop-shadow(0 0 10px rgba(255,64,129,0.8));
+  will-change: transform, opacity;
 }
 @keyframes floatUp {
   0% {
