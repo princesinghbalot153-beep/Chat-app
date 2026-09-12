@@ -339,6 +339,7 @@ body {
   overflow-wrap: break-word;
   animation: msgIn 0.2s ease-out;
   position: relative;
+  z-index: 1;
 }
 @keyframes msgIn {
   from { opacity: 0; transform: translateY(8px) scale(0.97); }
