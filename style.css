@@ -1,6 +1,14 @@
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 html, body { height:100%; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-body { background:#0b141a; overflow:hidden; }
+body {
+  background:#0b141a;
+  overflow:hidden;
+  position:fixed;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+}
 
 .screen { position:fixed; inset:0; display:flex; flex-direction:column; }
 .hidden { display:none !important; }
