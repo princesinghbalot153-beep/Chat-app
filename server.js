@@ -32,7 +32,13 @@ io.on('connection', (socket) => {
     const chatId = chatIdOf(socket.id, otherId);
     socket.emit('chat history', chats.get(chatId) || []);
   });
+  socket.on('typing', (to) => {
+    io.to(to).emit('typing', { from: socket.id, name: socket.username });
+  });
 
+  socket.on('stop typing', (to) => {
+    io.to(to).emit('stop typing', { from: socket.id });
+  });
   socket.on('dm', ({ to, text }) => {
     if (!socket.username || !text) return;
     const chatId = chatIdOf(socket.id, to);
