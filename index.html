@@ -10,25 +10,6 @@
 </head>
 <body>
 
-<!-- Floating Hearts -->
-<div class="hearts-container">
-  <div class="heart">💕</div>
-  <div class="heart">❤️</div>
-  <div class="heart">💖</div>
-  <div class="heart">💗</div>
-  <div class="heart">💓</div>
-  <div class="heart">🌸</div>
-  <div class="heart">💘</div>
-  <div class="heart">🌹</div>
-  <div class="heart">💝</div>
-  <div class="heart">✨</div>
-  <div class="heart">💞</div>
-  <div class="heart">🦋</div>
-  <div class="heart">💕</div>
-  <div class="heart">💖</div>
-  <div class="heart">🌺</div>
-</div>
-
 <!-- 1. Name screen -->
 <div id="nameScreen" class="screen hidden">
   <div class="name-box">
@@ -46,7 +27,7 @@
     <div class="avatar" id="myAvatar">?</div>
     <div class="top-info">
       <h3>Chats</h3>
-<span>Tap to start a conversation</span>
+      <span>Tap to start a conversation</span>
     </div>
   </header>
   <main id="usersList" class="users-list"></main>
@@ -57,18 +38,44 @@
   <header class="topbar">
     <button id="backBtn" class="back-btn">←</button>
     <div class="avatar" id="otherAvatar">?</div>
-        <div class="top-info">
-  <h3 id="otherName">...</h3>
-  <span id="typingStatus">online</span>
-  <span class="love-quote" id="loveQuote">💕 You are my love</span>
-</div>
+    <div class="top-info">
+      <h3 id="otherName">...</h3>
+      <span id="typingStatus">online</span>
+      <span class="love-quote" id="loveQuote">💕 You are my love</span>
+    </div>
   </header>
-  <main id="messages"></main>
+
+  <!-- NAYA WRAPPER YAHAN SE SHURU -->
+  <div class="chat-container">
+    <div class="chat-bg"></div>
+    
+    <div class="hearts-container">
+      <div class="heart">💕</div>
+      <div class="heart">❤️</div>
+      <div class="heart">💖</div>
+      <div class="heart">💗</div>
+      <div class="heart">💓</div>
+      <div class="heart">🌸</div>
+      <div class="heart">💘</div>
+      <div class="heart">🌹</div>
+      <div class="heart">💝</div>
+      <div class="heart">✨</div>
+      <div class="heart">💞</div>
+      <div class="heart">🦋</div>
+      <div class="heart">💕</div>
+      <div class="heart">💖</div>
+      <div class="heart">🌺</div>
+    </div>
+    
+    <main id="messages"></main>
+  </div>
+  <!-- WRAPPER KHATAM -->
+
   <form id="form" class="inputbar">
     <input id="input" type="text" placeholder="Message" autocomplete="off">
     <button type="submit" aria-label="Send">
-  <svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M3.4 20.4l17.45-7.48a1 1 0 000-1.84L3.4 3.6a.993.993 0 00-1.39.91L2 9.12c0 .5.37.93.87.99L17 12 2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91z" fill="#fff"/></svg>
-</button>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M3.4 20.4l17.45-7.48a1 1 0 000-1.84L3.4 3.6a.993.993 0 00-1.39.91L2 9.12c0 .5.37.93.87.99L17 12 2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91z" fill="#fff"/></svg>
+    </button>
   </form>
 </div>
 
