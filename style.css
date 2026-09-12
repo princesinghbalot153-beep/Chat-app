@@ -244,3 +244,8 @@ body { background:#0b141a; overflow:hidden; }
 ::-webkit-scrollbar-track { background:transparent; }
 ::-webkit-scrollbar-thumb { background:#374248; border-radius:3px; }
 ::-webkit-scrollbar-thumb:hover { background:#4a565c; }
+#typingStatus.typing {
+  color: #25d366;
+  font-style: italic;
+  font-weight: 500;
+}
