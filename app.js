@@ -91,6 +91,10 @@ function openChat(other) {
   chatScreen.classList.remove('hidden');
   input.focus();
   socket.emit('load chat', other.id);
+    // Unread count reset karo
+  unreadCounts[other.id] = 0;
+  const badge = document.getElementById('badge-' + other.id);
+  if (badge) badge.style.display = 'none';
 }
 
 backBtn.onclick = () => {
