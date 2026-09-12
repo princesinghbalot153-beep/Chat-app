@@ -295,8 +295,35 @@ body {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: #0a0a0a; 
-  background-image: radial-gradient(circle at 50% 50%, rgba(255, 182, 193, 0.15), transparent 70%);
+  background: #000000;
+  background-image: 
+    radial-gradient(1px 1px at 20% 30%, #ffffff, transparent),
+    radial-gradient(1px 1px at 60% 70%, #ffffff, transparent),
+    radial-gradient(1px 1px at 50% 50%, #ffffff, transparent),
+    radial-gradient(1px 1px at 80% 10%, #ffffff, transparent),
+    radial-gradient(1px 1px at 10% 80%, #ffffff, transparent),
+    radial-gradient(1px 1px at 90% 50%, #ffffff, transparent),
+    radial-gradient(1px 1px at 30% 60%, #ffffff, transparent),
+    radial-gradient(1px 1px at 70% 40%, #ffffff, transparent),
+    radial-gradient(1px 1px at 40% 20%, #ffffff, transparent),
+    radial-gradient(1px 1px at 15% 55%, #ffffff, transparent),
+    radial-gradient(1px 1px at 85% 75%, #ffffff, transparent),
+    radial-gradient(1px 1px at 65% 85%, #ffffff, transparent),
+    radial-gradient(1px 1px at 45% 95%, #ffffff, transparent),
+    radial-gradient(1px 1px at 25% 15%, #ffffff, transparent),
+    radial-gradient(1px 1px at 75% 25%, #ffffff, transparent),
+    radial-gradient(1px 1px at 5% 45%, #ffffff, transparent),
+    radial-gradient(1px 1px at 95% 65%, #ffffff, transparent),
+    radial-gradient(1px 1px at 55% 10%, #ffffff, transparent),
+    radial-gradient(1px 1px at 35% 80%, #ffffff, transparent),
+    radial-gradient(1px 1px at 88% 35%, #ffffff, transparent);
+  background-size: 200px 200px, 250px 250px, 300px 300px, 180px 180px, 220px 220px, 280px 280px, 240px 240px, 260px 260px, 190px 190px, 210px 210px, 270px 270px, 230px 230px, 290px 290px, 170px 170px, 200px 200px, 250px 250px, 220px 220px, 180px 180px, 260px 260px, 240px 240px;
+  animation: twinkle 6s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
 }
 
 /* ============ MESSAGES ============ */
