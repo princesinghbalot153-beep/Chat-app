@@ -370,7 +370,9 @@ body {
 /* Apne messages */
 .msg.own {
   align-self: flex-end;
-  background: linear-gradient(135deg, #c2185b, #e91e63, #ff4081);
+  background: linear-gradient(135deg, rgba(194,24,91,0.95), rgba(233,30,99,0.95), rgba(255,64,129,0.95));
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   color: #fff;
   border-bottom-right-radius: 4px;
   box-shadow: 0 3px 14px rgba(233,30,99,0.4);
