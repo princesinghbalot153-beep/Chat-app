@@ -1,5 +1,5 @@
 
-const CACHE = 'chat-v14';
+const CACHE = 'chat-v15';
 const ASSETS = ['/', '/index.html', '/style.css', '/app.js', '/manifest.json'];
 
 self.addEventListener('install', e => {
