@@ -608,8 +608,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 } 
-/* ====== BACKGROUND NAME (Minki) — Premium Edition ====== */
-
+/* ====== BACKGROUND NAME (Minki) ====== */
 .chat-bg::after {
   content: 'Minki';
   position: absolute;
@@ -617,65 +616,34 @@ body {
   left: 50%;
   transform: translate(-50%, -50%) rotate(-15deg);
   font-family: 'Georgia', 'Times New Roman', serif;
-  font-size: clamp(80px, 15vw, 160px);   /* 📱 Responsive size */
+  font-size: 120px;
   font-weight: 700;
   font-style: italic;
-  letter-spacing: 6px;
-
-  /* 🌈 Gradient text */
-  background: linear-gradient(
-    120deg,
-    #ffb6c1,
-    #ff69b4,
-    #ff1493,
-    #ff69b4,
-    #ffb6c1
-  );
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  /* ✨ Soft glow */
-  filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.5))
-          drop-shadow(0 0 40px rgba(255, 20, 147, 0.3));
-
-  /* 🎭 Slight transparency */
-  opacity: 0.22;
-
+  letter-spacing: 4px;
+  color: rgba(255, 182, 193, 0.18);
+  text-shadow: 
+    0 0 20px rgba(255, 105, 180, 0.4),
+    0 0 40px rgba(255, 20, 147, 0.3),
+    0 0 80px rgba(255, 105, 180, 0.2);
   pointer-events: none;
   z-index: 0;
+  animation: nameGlow 4s ease-in-out infinite;
   user-select: none;
-  white-space: nowrap;
-
-  /* 🎬 Combined animations */
-  animation: nameGlow 4s ease-in-out infinite,
-             gradientShift 8s ease infinite;
 }
 
-/* 🌟 Glow pulse */
 @keyframes nameGlow {
   0%, 100% {
-    opacity: 0.18;
-    filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.4))
-            drop-shadow(0 0 40px rgba(255, 20, 147, 0.3));
+    opacity: 0.7;
+    text-shadow: 
+      0 0 20px rgba(255, 105, 180, 0.4),
+      0 0 40px rgba(255, 20, 147, 0.3),
+      0 0 80px rgba(255, 105, 180, 0.2);
   }
   50% {
-    opacity: 0.35;
-    filter: drop-shadow(0 0 35px rgba(255, 105, 180, 0.7))
-            drop-shadow(0 0 70px rgba(255, 20, 147, 0.5));
+    opacity: 1;
+    text-shadow: 
+      0 0 30px rgba(255, 105, 180, 0.6),
+      0 0 60px rgba(255, 20, 147, 0.5),
+      0 0 100px rgba(255, 105, 180, 0.35);
   }
-}
-
-/* 🌈 Gradient movement */
-@keyframes gradientShift {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* 💫 Breathing/scale effect (optional) */
-@keyframes breathe {
-  0%, 100% { transform: translate(-50%, -50%) rotate(-15deg) scale(1); }
-  50%      { transform: translate(-50%, -50%) rotate(-15deg) scale(1.04); }
 }
