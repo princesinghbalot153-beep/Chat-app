@@ -609,10 +609,6 @@ body {
   text-overflow: ellipsis;
 } 
 /* ====== BACKGROUND NAME (Minki) — Premium Edition ====== */
-.chat-bg {
-  position: relative;
-  overflow: hidden;
-}
 
 .chat-bg::after {
   content: 'Minki';
