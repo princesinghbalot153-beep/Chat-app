@@ -294,17 +294,21 @@ socket.on('dm', (msg) => {
       badge.style.display = 'inline-flex';
     }
     
-    // Notification dikhao (agar app background me hai)
+        // Notification dikhao (agar app background me hai)
     if (Notification.permission === 'granted' && (document.hidden || document.visibilityState === 'hidden')) {
       const senderName = msg.fromName || 'Someone';
-      new Notification(senderName, {
-        body: msg.text,
-        icon: '/icons/icon-192.png',
-        badge: '/icons/icon-192.png',
-        tag: 'chat-' + msg.from,
-        renotify: true,
-        vibrate: [200, 100, 200]
-      });
+      if (navigator.serviceWorker && navigator.serviceWorker.ready) {
+        navigator.serviceWorker.ready.then(reg => {
+          reg.showNotification(senderName, {
+            body: msg.text,
+            icon: '/icons/icon-192.png',
+            badge: '/icons/icon-192.png',
+            tag: 'chat-' + msg.from,
+            renotify: true,
+            vibrate: [200, 100, 200]
+          });
+        });
+      }
     }
   }
 });
