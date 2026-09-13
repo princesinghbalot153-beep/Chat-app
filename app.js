@@ -174,6 +174,37 @@ backBtn.onclick = () => {
   
   replyTo = null;
   replyPreview.classList.add('hidden');
+}; 
+// --- Delete Account ---
+deleteAccountBtn.onclick = async () => {
+  const confirmDelete = confirm('Kya tum sach me apna account delete karna chahte ho? Ye wapas nahi aayega!');
+  if (!confirmDelete) return;
+
+  try {
+    const res = await fetch('/api/delete-account', {
+      method: 'DELETE',
+      headers: { Authorization: 'Bearer ' + myToken }
+    });
+
+    if (!res.ok) {
+      alert('Account delete nahi ho paya. Try again.');
+      return;
+    }
+
+    // Local storage clear karo
+    localStorage.removeItem('chat_token');
+    localStorage.removeItem('chat_name');
+    localStorage.removeItem('chat_user_id');
+
+    alert('Account delete ho gaya. Ab app reload hoga.');
+
+    // Page reload karo
+    location.reload();
+
+  } catch (err) {
+    console.error(err);
+    alert('Network error. Try again.');
+  }
 };
 
 // Reply cancel button
