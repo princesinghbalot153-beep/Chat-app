@@ -608,9 +608,9 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* ====== BACKGROUND NAME (SONAL) ====== */
+/* ====== BACKGROUND NAME (Jhamkudi) ====== */
 .chat-bg::after {
-  content: 'Sonal';
+  content: 'Jhamkudi';
   position: absolute;
   top: 50%;
   left: 50%;
