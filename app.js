@@ -16,7 +16,17 @@ const input       = document.getElementById('input');
 const backBtn     = document.getElementById('backBtn');
 
 let myName = '';
-let myId   = null;
+let myId   = '';
+
+function getUserId() {
+  let id = localStorage.getItem('chat_user_id');
+  if (!id) {
+    id = 'u_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
+    localStorage.setItem('chat_user_id', id);
+  }
+  return id;
+}
+myId = getUserId();
 let currentOther = null;
 let unreadCounts = {}; 
 
@@ -44,7 +54,7 @@ function enterApp() {
   nameScreen.classList.add('hidden');
   usersScreen.classList.remove('hidden');
   myAvatar.textContent = myName.charAt(0).toUpperCase();
-  socket.emit('join', myName);
+  socket.emit('join', { userId: myId, name: myName });
 }
 
 // --- Users list ---
@@ -52,7 +62,7 @@ socket.on('users', (list) => {
   usersList.innerHTML = '';
   const others = list.filter(u => u.id !== socket.id && u.name !== myName);
   if (others.length === 0) {
-    usersList.innerHTML = '<div class="empty">Abhi koi doosra user online nahi hai.<br>Dost ko link bhejo.</div>';
+    usersList.innerHTML = '<div class="empty">Abhi koi doosra user online nahi hai.</div>';
     return;
   }
   others.forEach(u => {
@@ -145,8 +155,8 @@ socket.on('dm', (msg) => {
   // Agar current chat open hai, toh seedha message dikhao
   if (currentOther) {
     const involved =
-      (msg.from === socket.id && msg.to === currentOther.id) ||
-      (msg.from === currentOther.id && msg.to === socket.id);
+      (msg.from === myId && msg.to === currentOther.id) ||
+      (msg.from === currentOther.id && msg.to === myId);
     if (involved) {
       addMessage(msg);
       return;
@@ -154,7 +164,7 @@ socket.on('dm', (msg) => {
   }
   
   // Agar message kisi aur user se aaya hai (aur tum chat me nahi ho)
-  if (msg.from !== socket.id) {
+  if (msg.from !== myId) {
     unreadCounts[msg.from] = (unreadCounts[msg.from] || 0) + 1;
     const badge = document.getElementById('badge-' + msg.from);
     if (badge) {
@@ -165,7 +175,7 @@ socket.on('dm', (msg) => {
 });
 
 function addMessage(msg) {
-  const own = msg.from === socket.id;
+  const own = msg.from === myId;
   const div = document.createElement('div');
   div.className = 'msg ' + (own ? 'own' : 'other');
   const t = document.createElement('div');
