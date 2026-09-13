@@ -14,6 +14,7 @@ app.use(express.static(__dirname));
 const users = new Map();
 // DM history: { chatId: [messages] }
 const chats = new Map();
+const socketToUser = new Map();
 
 function chatIdOf(a, b) {
   return [a, b].sort().join('__');
