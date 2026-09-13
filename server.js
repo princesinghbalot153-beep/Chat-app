@@ -22,11 +22,26 @@ function chatIdOf(a, b) {
 
 io.on('connection', (socket) => {
 
-  socket.on('join', (name) => {
+    socket.on('join', ({ userId, name }) => {
+    if (!userId || !name) return;
+    
+    const existing = users.get(userId);
+    if (existing && existing.socketId && existing.socketId !== socket.id) {
+      socketToUser.delete(existing.socketId);
+    }
+
+    socket.userId = userId;
     socket.username = name;
-    users.set(socket.id, { id: socket.id, name });
-    // Sabko updated user list bhej do
-    io.emit('users', Array.from(users.values()));
+    users.set(userId, { userId, name, socketId: socket.id });
+    socketToUser.set(socket.id, userId);
+    
+    const list = Array.from(users.values()).map(u => ({
+      id: u.userId,
+      name: u.name,
+      online: !!u.socketId
+    }));
+    io.emit('users', list);
+  });
   });
 
   socket.on('load chat', (otherId) => {
