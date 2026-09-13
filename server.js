@@ -44,8 +44,9 @@ io.on('connection', (socket) => {
   });
   });
 
-  socket.on('load chat', (otherId) => {
-    const chatId = chatIdOf(socket.id, otherId);
+    socket.on('load chat', (otherId) => {
+    if (!socket.userId) return;
+    const chatId = chatIdOf(socket.userId, otherId);
     socket.emit('chat history', chats.get(chatId) || []);
   });
     socket.on('typing', (to) => {
@@ -86,10 +87,19 @@ io.on('connection', (socket) => {
     }
   });
 
-  socket.on('disconnect', () => {
-    users.delete(socket.id);
-    io.emit('users', Array.from(users.values()));
+    socket.on('disconnect', () => {
+    const userId = socketToUser.get(socket.id);
+    if (userId) {
+      const user = users.get(userId);
+      if (user && user.socketId === socket.id) {
+        user.socketId = null;
+      }
+      socketToUser.delete(socket.id);
+      const list = Array.from(users.values()).map(u => ({
+        id: u.userId, name: u.name, online: !!u.socketId
+      }));
+      io.emit('users', list);
+    }
   });
-});
 
 server.listen(PORT, () => console.log('Running on ' + PORT));
