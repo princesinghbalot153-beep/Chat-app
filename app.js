@@ -76,7 +76,7 @@ socket.on('users', (list) => {
     const h4 = document.createElement('h4');
     h4.textContent = u.name;
     const p = document.createElement('p');
-    p.textContent = 'Tap to chat';
+    p.textContent = u.online ? 'online' : 'offline';
     info.appendChild(h4); info.appendChild(p);
     row.appendChild(av); row.appendChild(info);
         // Unread badge
