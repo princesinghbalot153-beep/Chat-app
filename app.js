@@ -16,6 +16,7 @@ const messagesEl  = document.getElementById('messages');
 const form        = document.getElementById('form');
 const input       = document.getElementById('input');
 const backBtn     = document.getElementById('backBtn');
+const deleteAccountBtn = document.getElementById('deleteAccountBtn');
 
 // Reply elements
 const replyPreview = document.getElementById('replyPreview');
