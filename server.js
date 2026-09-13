@@ -92,6 +92,30 @@ app.get('/api/me', async (req, res) => {
   } catch (err) {
     res.status(401).json({ error: 'Invalid token' });
   }
+}); 
+// Account delete karne ka route
+app.delete('/api/delete-account', async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) return res.status(401).json({ error: 'No token' });
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.userId;
+
+    // User delete karo
+    await User.deleteOne({ userId: userId });
+
+    // Uske saare messages delete karo
+    await Message.deleteMany({
+      $or: [{ from: userId }, { to: userId }]
+    });
+
+    res.json({ success: true, message: 'Account delete ho gaya' });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
 });
 
 // ============ SOCKET.IO ============
