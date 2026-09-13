@@ -42,7 +42,6 @@ io.on('connection', (socket) => {
     }));
     io.emit('users', list);
   });
-  });
 
     socket.on('load chat', (otherId) => {
     if (!socket.userId) return;
