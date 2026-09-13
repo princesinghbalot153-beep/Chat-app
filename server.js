@@ -10,9 +10,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.static(__dirname));
 
-// Online users: { socketId: { id, name } }
 const users = new Map();
-// DM history: { chatId: [messages] }
 const chats = new Map();
 const socketToUser = new Map();
 
@@ -22,19 +20,16 @@ function chatIdOf(a, b) {
 
 io.on('connection', (socket) => {
 
-    socket.on('join', ({ userId, name }) => {
+  socket.on('join', ({ userId, name }) => {
     if (!userId || !name) return;
-    
     const existing = users.get(userId);
     if (existing && existing.socketId && existing.socketId !== socket.id) {
       socketToUser.delete(existing.socketId);
     }
-
     socket.userId = userId;
     socket.username = name;
     users.set(userId, { userId, name, socketId: socket.id });
     socketToUser.set(socket.id, userId);
-    
     const list = Array.from(users.values()).map(u => ({
       id: u.userId,
       name: u.name,
@@ -43,20 +38,23 @@ io.on('connection', (socket) => {
     io.emit('users', list);
   });
 
-    socket.on('load chat', (otherId) => {
+  socket.on('load chat', (otherId) => {
     if (!socket.userId) return;
     const chatId = chatIdOf(socket.userId, otherId);
     socket.emit('chat history', chats.get(chatId) || []);
   });
-    socket.on('typing', (to) => {
+
+  socket.on('typing', (to) => {
     if (!socket.userId) return;
     const target = users.get(to);
     if (target && target.socketId) {
       io.to(target.socketId).emit('typing', {
-        from: socket.userId, name: socket.username
+        from: socket.userId,
+        name: socket.username
       });
     }
   });
+
   socket.on('stop typing', (to) => {
     if (!socket.userId) return;
     const target = users.get(to);
@@ -64,8 +62,8 @@ io.on('connection', (socket) => {
       io.to(target.socketId).emit('stop typing', { from: socket.userId });
     }
   });
-    
-    socket.on('dm', ({ to, text }) => {
+
+  socket.on('dm', ({ to, text }) => {
     if (!socket.userId || !text) return;
     const chatId = chatIdOf(socket.userId, to);
     const msg = {
@@ -86,7 +84,7 @@ io.on('connection', (socket) => {
     }
   });
 
-    socket.on('disconnect', () => {
+  socket.on('disconnect', () => {
     const userId = socketToUser.get(socket.id);
     if (userId) {
       const user = users.get(userId);
@@ -95,10 +93,14 @@ io.on('connection', (socket) => {
       }
       socketToUser.delete(socket.id);
       const list = Array.from(users.values()).map(u => ({
-        id: u.userId, name: u.name, online: !!u.socketId
+        id: u.userId,
+        name: u.name,
+        online: !!u.socketId
       }));
       io.emit('users', list);
     }
   });
+
+});
 
 server.listen(PORT, () => console.log('Running on ' + PORT));
