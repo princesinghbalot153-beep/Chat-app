@@ -70,7 +70,14 @@
     <main id="messages"></main>
   </div>
   <!-- WRAPPER KHATAM -->
-
+<!-- Reply Preview Box -->
+<div id="replyPreview" class="reply-preview hidden">
+  <div class="reply-preview-content">
+    <div class="reply-preview-name" id="replyName">User</div>
+    <div class="reply-preview-text" id="replyText">Message...</div>
+  </div>
+  <button type="button" id="cancelReply" class="cancel-reply">✕</button>
+</div>
   <form id="form" class="inputbar">
     <input id="input" type="text" placeholder="Message" autocomplete="off">
     <button type="submit" aria-label="Send">
