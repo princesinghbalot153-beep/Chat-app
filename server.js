@@ -63,26 +63,27 @@ io.on('connection', (socket) => {
     }
   });
 
-  socket.on('dm', ({ to, text }) => {
-    if (!socket.userId || !text) return;
-    const chatId = chatIdOf(socket.userId, to);
-    const msg = {
-      from: socket.userId,
-      fromName: socket.username,
-      to,
-      text,
-      time: Date.now()
-    };
-    if (!chats.has(chatId)) chats.set(chatId, []);
-    chats.get(chatId).push(msg);
-    if (chats.get(chatId).length > 500) chats.get(chatId).shift();
+  socket.on('dm', ({ to, text, replyTo }) => {
+  if (!socket.userId || !text) return;
+  const chatId = chatIdOf(socket.userId, to);
+  const msg = {
+    from: socket.userId,
+    fromName: socket.username,
+    to,
+    text,
+    time: Date.now(),
+    replyTo: replyTo || null   // Reply data yahan save hoga
+  };
+  if (!chats.has(chatId)) chats.set(chatId, []);
+  chats.get(chatId).push(msg);
+  if (chats.get(chatId).length > 500) chats.get(chatId).shift();
 
-    socket.emit('dm', msg);
-    const target = users.get(to);
-    if (target && target.socketId) {
-      io.to(target.socketId).emit('dm', msg);
-    }
-  });
+  socket.emit('dm', msg);
+  const target = users.get(to);
+  if (target && target.socketId) {
+    io.to(target.socketId).emit('dm', msg);
+  }
+});
 
   socket.on('disconnect', () => {
     const userId = socketToUser.get(socket.id);
