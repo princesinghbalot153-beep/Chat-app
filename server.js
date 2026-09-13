@@ -48,18 +48,28 @@ io.on('connection', (socket) => {
     const chatId = chatIdOf(socket.id, otherId);
     socket.emit('chat history', chats.get(chatId) || []);
   });
-  socket.on('typing', (to) => {
-    io.to(to).emit('typing', { from: socket.id, name: socket.username });
+    socket.on('typing', (to) => {
+    if (!socket.userId) return;
+    const target = users.get(to);
+    if (target && target.socketId) {
+      io.to(target.socketId).emit('typing', {
+        from: socket.userId, name: socket.username
+      });
+    }
   });
-
   socket.on('stop typing', (to) => {
-    io.to(to).emit('stop typing', { from: socket.id });
+    if (!socket.userId) return;
+    const target = users.get(to);
+    if (target && target.socketId) {
+      io.to(target.socketId).emit('stop typing', { from: socket.userId });
+    }
   });
-  socket.on('dm', ({ to, text }) => {
-    if (!socket.username || !text) return;
-    const chatId = chatIdOf(socket.id, to);
+    
+    socket.on('dm', ({ to, text }) => {
+    if (!socket.userId || !text) return;
+    const chatId = chatIdOf(socket.userId, to);
     const msg = {
-      from: socket.id,
+      from: socket.userId,
       fromName: socket.username,
       to,
       text,
@@ -69,9 +79,11 @@ io.on('connection', (socket) => {
     chats.get(chatId).push(msg);
     if (chats.get(chatId).length > 500) chats.get(chatId).shift();
 
-    // Dono ko bhej do
-    io.to(socket.id).emit('dm', msg);
-    io.to(to).emit('dm', msg);
+    socket.emit('dm', msg);
+    const target = users.get(to);
+    if (target && target.socketId) {
+      io.to(target.socketId).emit('dm', msg);
+    }
   });
 
   socket.on('disconnect', () => {
