@@ -647,3 +647,18 @@ body {
       0 0 100px rgba(255, 105, 180, 0.35);
   }
 }
+/* Delete Account Button */
+.delete-account-btn {
+  background: none;
+  border: none;
+  color: #ff6b6b;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 50%;
+  transition: background 0.2s;
+  margin-left: auto;
+}
+.delete-account-btn:active {
+  background: rgba(255, 107, 107, 0.2);
+}
