@@ -110,13 +110,6 @@ app.delete('/api/delete-account', async (req, res) => {
       $or: [{ from: userId }, { to: userId }]
     });
 
-    res.json({ success: true, message: 'Account delete ho gaya' });
-
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Server error' });
-  }
-});
     // Memory se bhi user hatao
     if (users.has(userId)) {
       users.delete(userId);
@@ -129,6 +122,14 @@ app.delete('/api/delete-account', async (req, res) => {
       online: !!u.socketId
     }));
     io.emit('users', list);
+
+    res.json({ success: true, message: 'Account delete ho gaya' });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
 
 // ============ SOCKET.IO ============
 const users = new Map();
