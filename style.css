@@ -608,3 +608,42 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+/* ====== BACKGROUND NAME (SONAL) ====== */
+.chat-bg::after {
+  content: 'Sonal';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-15deg);
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 120px;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 4px;
+  color: rgba(255, 182, 193, 0.18);
+  text-shadow: 
+    0 0 20px rgba(255, 105, 180, 0.4),
+    0 0 40px rgba(255, 20, 147, 0.3),
+    0 0 80px rgba(255, 105, 180, 0.2);
+  pointer-events: none;
+  z-index: 0;
+  animation: nameGlow 4s ease-in-out infinite;
+  user-select: none;
+}
+
+@keyframes nameGlow {
+  0%, 100% {
+    opacity: 0.7;
+    text-shadow: 
+      0 0 20px rgba(255, 105, 180, 0.4),
+      0 0 40px rgba(255, 20, 147, 0.3),
+      0 0 80px rgba(255, 105, 180, 0.2);
+  }
+  50% {
+    opacity: 1;
+    text-shadow: 
+      0 0 30px rgba(255, 105, 180, 0.6),
+      0 0 60px rgba(255, 20, 147, 0.5),
+      0 0 100px rgba(255, 105, 180, 0.35);
+  }
+}
