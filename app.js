@@ -295,7 +295,7 @@ socket.on('dm', (msg) => {
     }
     
     // Notification dikhao (agar app background me hai)
-    if (Notification.permission === 'granted' && document.hidden) {
+    if (Notification.permission === 'granted' && document.hidden) || document.visibilityState === 'hidden')) {
       const senderName = msg.fromName || 'Someone';
       new Notification(senderName, {
         body: msg.text,
