@@ -117,6 +117,18 @@ app.delete('/api/delete-account', async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 });
+    // Memory se bhi user hatao
+    if (users.has(userId)) {
+      users.delete(userId);
+    }
+
+    // Sabko updated list bhejo
+    const list = Array.from(users.values()).map(u => ({
+      id: u.userId,
+      name: u.name,
+      online: !!u.socketId
+    }));
+    io.emit('users', list);
 
 // ============ SOCKET.IO ============
 const users = new Map();
